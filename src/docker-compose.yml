@@ -1,0 +1,23 @@
+version: '3.2'
+
+services:
+  b-scylla:
+    image: scylladb/scylla:4.4.4
+    container_name: b-scylla
+    volumes:
+      - ./:/project
+    ports:
+      - 9042:9042
+      - 9160:9160
+
+  b-scylla2:
+    image: scylladb/scylla:4.4.4
+    container_name: b-scylla2
+    command:
+      - "--seeds=b-scylla"
+
+  b-scylla3:
+    image: scylladb/scylla:4.4.4
+    container_name: b-scylla3
+    command:
+      - "--seeds=b-scylla"
