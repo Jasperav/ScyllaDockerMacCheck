@@ -17,9 +17,9 @@ async fn main() {
 
     tokio::time::sleep(tokio::time::Duration::from_secs(200)).await;
 
-    let result = Command::new("curl")
+    let result = Command::new("docker")
         .args(&["exec", "b-scylla", "nodetool", "status"])
-        .status()
+        .output()
         .unwrap();
 
     println!("Scylla status: {:#?}", result);
@@ -40,11 +40,5 @@ async fn main() {
         .output()
         .unwrap();
 
-    if !output.status.success() {
-        println!("Something went wrong in Elasticsearch");
-
-        panic!("{:#?}", output);
-    }
-
-    println!("Everything went well");
+    println!("Elasticsearch result: {:#?}", output);
 }
