@@ -1,23 +1,11 @@
 version: '3.2'
 
 services:
-  b-scylla:
-    image: scylladb/scylla:4.4.4
-    container_name: b-scylla
-    volumes:
-      - ./:/project
+  b-elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.1
+    container_name: b-elastic
+    # The single node is needed because else an error is thrown
+    environment:
+      - discovery.type=single-node
     ports:
-      - 9042:9042
-      - 9160:9160
-
-  b-scylla2:
-    image: scylladb/scylla:4.4.4
-    container_name: b-scylla2
-    command:
-      - "--seeds=b-scylla"
-
-  b-scylla3:
-    image: scylladb/scylla:4.4.4
-    container_name: b-scylla3
-    command:
-      - "--seeds=b-scylla"
+      - 9200:9200
