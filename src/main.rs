@@ -22,5 +22,29 @@ async fn main() {
         .status()
         .unwrap();
 
-    panic!("{:#?}", result);
+    println!("Scylla status: {:#?}", result);
+
+    let output = Command::new("docker")
+        .args(&[
+            "exec",
+            "b-elastic",
+            "curl",
+            "-X",
+            "PUT",
+            "http://localhost:9200/users",
+            "-H",
+            "Content-Type: application/json",
+            "--data-binary",
+            "@/project/database/elasticsearch/setup.json",
+        ])
+        .output()
+        .unwrap();
+
+    if !output.status.success() {
+        println!("Something went wrong in Elasticsearch");
+
+        panic!("{:#?}", output);
+    }
+
+    println!("Everything went well");
 }

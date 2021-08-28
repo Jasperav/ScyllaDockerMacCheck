@@ -1,0 +1,10 @@
+{
+  "mappings": {
+    "properties": {
+      "_all" : { "enabled" : false },
+      "username": {
+        "type": "text"
+      }
+    }
+  }
+}
