@@ -35,7 +35,7 @@ async fn main() {
             "-H",
             "Content-Type: application/json",
             "--data-binary",
-            "@/project/database/elasticsearch/setup.json",
+            "@/src/setup.json",
         ])
         .output()
         .unwrap();
